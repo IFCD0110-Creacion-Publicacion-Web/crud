@@ -54,3 +54,34 @@ if (isset($_GET['edit'])) {
         <?php
     }
 }
+
+// Actualiza Usuario
+if (isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+
+    $sql = "UPDATE users SET name='$name', email='$email' WHERE id=$id";
+
+    if( $conn->query(query: $sql) === TRUE) {
+        header(header:"Location: index.php");
+    } else {
+        echo "Error". $sql . "<br>" . $conn->error;
+    }
+}
+
+// Eliminar Usuario
+if (isset($_GET["delete"])) {
+    $id = $_GET["delete"];
+
+    $sql = "DELETE FROM users WHERE id = $id";
+
+    if( $conn->query(query: $sql) === TRUE) {
+        header(header:'Location: index.php');
+    } else {
+        echo "Error". $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>
